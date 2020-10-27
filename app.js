@@ -1,20 +1,28 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv/config')
-//Middlewares
-//Used when the routes is accessed by users.
+const { handleError, ErrorHandler } = require('./utils/ErrorHandler');
+require('dotenv/config');
+
+//Use body parser for json
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//Import Routes
+const auth = require('./routes/auth');
+app.use('/auth', auth);
 
 //Routes
 app.get('/', (req, res) => {
     res.send("We are on home")
 });
 
-app.get('/posts', (req, res) => {
-    res.send("Another endpoints")
+//Handle Error
+app.use(async (err, req, res, next) => {
+    handleError(err,res)
 });
 
-//connect to db
+//Connect to db
 mongoose.connect(process.env.DB_CONNECTION, 
 {useNewUrlParser: true, useUnifiedTopology: true},
 () =>
