@@ -12,6 +12,8 @@ app.use(express.json());
 // Import Routes
 const auth = require('./routes/auth');
 app.use('/auth', auth);
+const profile = require('./routes/profile');
+app.use('/profile', profile);
 
 // Routes
 app.get('/', (req, res) => {

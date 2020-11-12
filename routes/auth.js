@@ -24,6 +24,8 @@ async function login(req, res, next) {
 }
 
 async function register(req, res, next){
+  // Kalori makanan diisii saat user sudah menambahkan 
+  // makanan yang ingin dimasak.
   const register = new Auth({
     nama_lengkap : req.body.nama_lengkap,
     email : req.body.email,
@@ -33,7 +35,7 @@ async function register(req, res, next){
     berat_badan : req.body.berat_badan,
     aktivitas_harian : req.body.aktivitas_harian,
     kalori_user : req.body.kalori_user,
-    kalori_makanan : req.body.kalori_makanan
+    kalori_makanan : null
   });
   try {
     const authRegister = await register.save();
