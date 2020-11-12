@@ -35,7 +35,7 @@ async function register(req, res, next){
     berat_badan : req.body.berat_badan,
     aktivitas_harian : req.body.aktivitas_harian,
     kalori_user : req.body.kalori_user,
-    kalori_makanan : null
+    kalori_makanan : []
   });
   try {
     const authRegister = await register.save();

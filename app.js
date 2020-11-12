@@ -27,7 +27,8 @@ app.use(async (err, req, res, next) => {
 
 // Connect to db
 mongoose.connect(process.env.DB_CONNECTION,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  { useNewUrlParser: true, useUnifiedTopology: true, 
+    useCreateIndex: true, useFindAndModify: false},
   () => console.log('connected to db!'));
 
 // Now start listening on 3000

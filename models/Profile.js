@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+let mongooseHidden = require('mongoose-hidden')();
 
 const AuthSchema = mongoose.Schema({
     nama_user:{
@@ -11,7 +12,8 @@ const AuthSchema = mongoose.Schema({
     },
     password:{
         type: String,
-        required: true
+        required: true,
+        hide: true
     },
     umur:{
         type: Number
@@ -35,5 +37,7 @@ const AuthSchema = mongoose.Schema({
         link: {type: String}
     }]
 });
+
+AuthSchema.plugin(mongooseHidden, {hidden: {_id: true, password: true }})
 
 module.exports = mongoose.model('Profile', AuthSchema);

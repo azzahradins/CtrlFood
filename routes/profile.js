@@ -24,17 +24,31 @@ async function infoProfile(req, res, next) {
 }
 
 async function addCalories(req, res, next) {
-  const { email, calories } = req.body;
+  // const { email } = req.body;
+  // var dataCalories = {
+  //   nama_makanan: req.body.nama_makanan,
+  //   kalori_makanan: req.body.kalori_makanan,
+  //   link: req.body.link,
+  // };
+  const {email} = req.body;
+  var dataCalories = {
+    tanggal : Date.now(),
+    nama_makanan: req.body.nama_makanan,
+    kalori_makanan: req.body.kalori_makanan,
+    link: req.body.link
+  };
   try {
     if (!email) {
       throw new ErrorHandler(400, 'Search invalid, email tidak boleh kosong');
     }
-    const user = await Profile.findOne({email : (email), calories});
+    const user = await Profile.findOneAndUpdate(
+      {email : (email)},
+      {$push:{kalori_makanan: dataCalories}}
+    );
     if (!user) {
       throw new ErrorHandler(400, 'User tidak ditemukan');
     } else {
-      res.json(user);
-      res.status(200).send();
+      throw new ErrorHandler(200, 'Berhasil menambah data!');
     }
     next();
   } catch (err) {
